@@ -1,18 +1,18 @@
 package main;
 
 public class Edge {
-	private String src;
+	private String source;
 	private String dest;
 	private double weight;
 
-	public Edge(String src, String dest, double weight) {
-		this.src = src;
+	public Edge(String source, String dest, double weight) {
+		this.source = source;
 		this.dest = dest;
 		this.weight = weight;
 	}
 
-	public String getSrc() {
-		return src;
+	public String getSource() {
+		return source;
 	}
 
 	public String getDest() {

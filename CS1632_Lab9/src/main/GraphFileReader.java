@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GraphFileReader {
-	public List<Edge> readEdges(String filename) throws FileNotFoundException {
-		List<Edge> edges = new ArrayList<>();
-		Scanner fileScanner = new Scanner(new File(filename));
-		while (fileScanner.hasNextLine()) {
-			String line = fileScanner.nextLine().trim();
+	public ArrayList<Edge> readEdges(String filename) throws FileNotFoundException {
+		ArrayList<Edge> edges = new ArrayList<>();
+		Scanner sc = new Scanner(new File(filename));
+		
+		while (sc.hasNextLine()) {
+			String line = sc.nextLine().trim();
 			if (line.isEmpty()) {
-				continue; // skip blank lines
+				continue;
 			}
 
 			String[] parts = line.split(",", -1);
@@ -22,23 +23,25 @@ public class GraphFileReader {
 				continue;
 			}
 
-			String src = parts[0].trim();
+			String source = parts[0].trim();
 			String dest = parts[1].trim();
-			String weightToken = parts[2].trim();
+			String weight = parts[2].trim();
 
-			if (src.isEmpty() || dest.isEmpty()) {
+			if (source.isEmpty() || dest.isEmpty()) {
 				System.out.println("Skipping line with empty node name: " + line);
 				continue;
 			}
 
 			try {
-				double weight = Double.parseDouble(weightToken);
-				edges.add(new Edge(src, dest, weight));
-			} catch (NumberFormatException nfe) {
+				double weightDouble = Double.parseDouble(weight);
+				edges.add(new Edge(source, dest, weightDouble));
+			} 
+			catch (NumberFormatException nfe) {
 				System.out.println("Skipping line with bad weight: " + line);
 			}
 		}
-		fileScanner.close();
+		sc.close();
+		
 		return edges;
 	}
 }

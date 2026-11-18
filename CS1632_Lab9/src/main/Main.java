@@ -5,44 +5,33 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-		Scanner keyboard = new Scanner(System.in);
-		System.out.print("Enter the graph CSV file name: ");
-		String filename = keyboard.nextLine().trim();
-	
 		GraphFileReader reader = new GraphFileReader();
-		
 		List<Edge> edges;
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Enter the graph CSV file name: ");
+		String filename = sc.nextLine().trim();
+	
 		try {
 			edges = reader.readEdges(filename);
-		} catch (java.io.FileNotFoundException fnfe) {
+		} 
+		catch (java.io.FileNotFoundException fnfe) {
 			System.out.println("Error: could not find file \"" + filename + "\"");
-			keyboard.close();
+			sc.close();
 			return;
 		}
 	
 		if (edges.isEmpty()) {
 			System.out.println("No edges found in file — nothing to do.");
-			keyboard.close();
+			sc.close();
 			return;
 		}
 		
-		AdjacencyListGraph listGraph = new AdjacencyListGraph();
-		for (Edge e : edges) {
-			listGraph.addEdge(e.getSrc(), e.getDest(), e.getWeight());
+		for (Edge i : edges) {
+			
 		}
-		listGraph.sortNeighborLists();
-
-		AdjacencyMatrixGraph matrixGraph = new AdjacencyMatrixGraph(edges);
-
-		listGraph.print();
-		System.out.println();
-		matrixGraph.print();
-		System.out.println();
-		
-		// @TODO Stuff
 		
 		
-		
-		keyboard.close();
+		sc.close();
 	}
 }
